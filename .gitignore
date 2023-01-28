@@ -1,0 +1,21 @@
+node_modules
+
+# Local publishing store
+.publisher.json
+
+# VS Code
+*.code-workspace
+.history/*
+
+# IntelliJ IDE ignore
+.idea
+
+# Misc
+.DS_Store
+.ultra.cache.json
+.pnpm-debug.log
+*npm-debug.log
+*stats.html
+*yarn-error.log
+
+*.tsbuildinfo
