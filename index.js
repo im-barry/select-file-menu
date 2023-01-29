@@ -1,4 +1,6 @@
 import inquirer from 'inquirer';
+import process from 'process';
+import { spawn, exec } from 'node:child_process';
 import fs from 'fs';
 
 const gotoDirectory = (folder) => {
@@ -33,6 +35,27 @@ const gotoDirectory = (folder) => {
 			.then(({ decision }) => {
 				if (decision.type === 'dir') {
 					gotoDirectory(`${folder}${decision.label}/`);
+				} else {
+					console.log('a decision was made: ', decision);
+					//process.argv[2]
+					if (process.argv[2]) {
+						console.log('execute', process.argv[2], ' on: ', `${folder}${decision.label}`);
+
+						// this works for nano:
+						const command = spawn(process.argv[2], [`${folder}${decision.label}`], {
+							stdio: 'inherit',
+							detached: true,
+						});
+						command.stdout.on('data', (output) => {
+							console.log('output');
+						});
+						// exec(process.argv[2], (err, output) => {
+						// 	if (err) {
+						// 		return console.log('error', err);
+						// 	}
+						// 	console.log('output');
+						// });
+					}
 				}
 			})
 			.catch((error) => {
@@ -40,7 +63,7 @@ const gotoDirectory = (folder) => {
 					console.log('error', error);
 					// Prompt couldn't be rendered in the current environment
 				} else {
-					console.log('Something else went wrong');
+					console.log('Something else went wrong', error);
 					// Something else went wrong
 				}
 			});
