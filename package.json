@@ -11,7 +11,8 @@
 	"license": "ISC",
 	"type": "module",
 	"dependencies": {
-		"inquirer": "^9.1.4"
+		"inquirer": "^9.1.4",
+		"shelljs": "^0.8.5"
 	},
 	"devDependencies": {
 		"prettier": "^2.8.3"
